@@ -3,6 +3,7 @@ import '@styles/globals.css';
 import Head from 'next/head';
 import theme from 'ui/themes/theme';
 import Header from 'ui/components/surfaces/Header/Header';
+import Footer from 'ui/components/surfaces/Footer/Footer';
 
 function MyApp({ Component, pageProps }) {
   return (
@@ -19,6 +20,7 @@ function MyApp({ Component, pageProps }) {
       <ThemeProvider theme={theme}>
         <Header />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </>
   );
