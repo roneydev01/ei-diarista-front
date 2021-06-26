@@ -2,7 +2,12 @@ import SafeEnviroment from 'ui/components/feedback/SafeEnveroment/SafeEnviroment
 import PageTitle from 'ui/components/data-display/PageTitle/PageTitle';
 import UserInformation from 'ui/components/data-display/UserInformation/UserInformation';
 import TextFieldMask from 'ui/components/inputs/TextFieldMask/TextFieldMask';
-import { Button, Typography, Container } from '@material-ui/core';
+import {
+  Button,
+  Typography,
+  Container,
+  CircularProgress,
+} from '@material-ui/core';
 import {
   FormElementsContainer,
   ProfissionaisPaper,
@@ -12,7 +17,17 @@ import {
 import useIndex from 'data/hooks/pages/useIndex.page';
 
 export default function Home() {
-  const { cep, setCep, cepValido } = useIndex();
+  const {
+    cep,
+    setCep,
+    cepValido,
+    buscarProfissionais,
+    erro,
+    diaristas,
+    buscaFeita,
+    carregando,
+    diaristasRestantes,
+  } = useIndex();
 
   return (
     <div>
@@ -35,14 +50,16 @@ export default function Home() {
             onChange={(event) => setCep(event.target.value)}
           />
 
-          <Typography color={'error'}>CEP inválido</Typography>
+          {erro && <Typography color={'error'}>{erro}</Typography>}
 
           <Button
             variant={'contained'}
             color={'secondary'}
             sx={{ width: '220px' }}
+            disabled={!cepValido || carregando}
+            onClick={() => buscarProfissionais(cep)}
           >
-            Buscar
+            {carregando ? <CircularProgress size={20} /> : 'Buscar'}
           </Button>
         </FormElementsContainer>
         <ProfissionaisPaper>
