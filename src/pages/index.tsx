@@ -62,46 +62,48 @@ export default function Home() {
             {carregando ? <CircularProgress size={20} /> : 'Buscar'}
           </Button>
         </FormElementsContainer>
-        <ProfissionaisPaper>
-          <ProfissionaisConatiner>
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-            <UserInformation
-              name={'Roney Freitas'}
-              picture={'https://github.com/roneydev01.png'}
-              rating={4}
-              description={'Fortaleza-CE'}
-            />
-          </ProfissionaisConatiner>
-        </ProfissionaisPaper>
+        {buscaFeita &&
+          (diaristas.length > 0 ? (
+            <ProfissionaisPaper>
+              <ProfissionaisConatiner>
+                {diaristas.map((item, index) => {
+                  return (
+                    <UserInformation
+                      key={index}
+                      name={item.nome_completo}
+                      picture={item.foto_usuario}
+                      rating={item.reputacao}
+                      description={item.cidade}
+                    />
+                  );
+                })}
+              </ProfissionaisConatiner>
+
+              <Container sx={{ textAlign: 'center' }}>
+                {diaristasRestantes == 0 && (
+                  <Typography sx={{ mt: 5 }}>
+                    ...e mais {diaristasRestantes}{' '}
+                    {diaristasRestantes > 1
+                      ? 'profissionais atendem '
+                      : 'profissional atende '}{' '}
+                    ao seu endereço.
+                  </Typography>
+                )}
+
+                <Button
+                  variant={'contained'}
+                  color={'secondary'}
+                  sx={{ mt: 5 }}
+                >
+                  Contratar um profissional
+                </Button>
+              </Container>
+            </ProfissionaisPaper>
+          ) : (
+            <Typography align={'center'} color={'textPrimary'}>
+              Ainda não temos nenhuma diarista disponível na sua região
+            </Typography>
+          ))}
       </Container>
     </div>
   );
